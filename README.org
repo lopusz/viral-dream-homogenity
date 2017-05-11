@@ -1,1 +1,11 @@
 * Viral Dream Patient Homogenity Analysis
+  + Usage
+
+  + Download the =RVChallenge_Leaderboard_Predictions_SC1.csv= and
+   =RVChallenge_Leaderboard_Predictions_SC1.csv= data from =syn8670505=
+  + Run
+    #+BEGIN_SRC sh
+    Rscript  gen_homogenity_plot.R RVChallenge_Leaderboard_Predictions_SC1.csv RVChallenge_Leaderboard_Predictions_SC1.pdf
+    Rscript  gen_homogenity_plot.R RVChallenge_Leaderboard_Predictions_SC2.csv RVChallenge_Leaderboard_Predictions_SC2.pdf
+    #+END_SRC
+  + This will generate the homogenitt plots in PDF format
