@@ -120,10 +120,10 @@ plot_class<-function(class,sorted_subject_ids_df,sorted_teams_df,out_plot_fname)
   colnames(df)[3]<-"Class"
 
   df$SubjectID<-factor(df$SubjectID,levels=sorted_subject_ids_df$SubjectID)
-    levels(df$SubjectID)<-sprintf("[%d] %s", sorted_subject_ids_df$Score, sorted_subject_ids_df$SubjectID)
+    levels(df$SubjectID)<-sprintf("[%2d] %s", sorted_subject_ids_df$Score, sorted_subject_ids_df$SubjectID)
 
   df$Team<-factor(df$Team,levels=sorted_teams_df$Team)
-  levels(df$Team)<-sprintf("%s [%5.3f]", sorted_teams_df$Team, sorted_teams_df$Score)
+  levels(df$Team)<-sprintf("%s [%2.0f]", sorted_teams_df$Team, sorted_teams_df$Score)
 
   class_level_names<-c("0, pred right",
                        "0, pred wrong",
@@ -139,10 +139,13 @@ plot_class<-function(class,sorted_subject_ids_df,sorted_teams_df,out_plot_fname)
   class_colors<-c("#d7191c","#fdae61","#a6d96a","#1a9641")
   names(class_colors)<-class_level_names
 
+  title<-gsub("\\.[^\\.]*$","",basename(out_plot_fname))
+
   pdf(file=out_plot_fname)
   p<-ggplot()+
      geom_raster(data=df,aes(x=SubjectID,y=Team,fill=Class))+
      scale_fill_manual(values = class_colors)+
+     ggtitle(title)+
      theme_bw()+
      theme(axis.text.x = element_text(angle = 315, hjust = 0))
   show(p)
