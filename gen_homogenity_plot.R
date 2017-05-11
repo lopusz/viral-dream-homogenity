@@ -57,9 +57,11 @@ is_0_1<-function(pred_prob_unique) {
 find_opt_pred<-function(pred_prob, ans, score_f) {
   res<-pred_prob
   u_pred_prob_plain<-sort(unique(pred_prob))
+
+  # If there are only predictions (i.e. 1 and 0 only), skip  adjusting
+
   if (!is_0_1(u_pred_prob_plain)) {
     u_pred_prob<-c(u_pred_prob_plain,Inf)
-    #u_pred_prob<-sort(unique(pred_prob))[-1]
     df<-data.frame(prob=u_pred_prob,score=rep(0.0,length(u_pred_prob)))
     for(i in 1:length(u_pred_prob)) {
       p<-u_pred_prob[i]
@@ -67,10 +69,8 @@ find_opt_pred<-function(pred_prob, ans, score_f) {
     }
     j<-which.max(df$score)
     res<-1*(pred_prob<df$prob[j])
-    cat(df$score,"\n")
+    #cat(df$score,"\n")
     #cat(j,df$prob[j],"\n")
-  } else {
-    cat("SKIPPING\n")
   }
   return(res)
 }
@@ -177,5 +177,5 @@ main<-function(inp_data_fname,out_plot_fname) {
 args<-commandArgs(trailingOnly = TRUE)
 
 if (length(args)>1) {
-  main(args[[1]],args[[2]])
+  res<-main(args[[1]],args[[2]])
 }
